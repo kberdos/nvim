@@ -796,6 +796,8 @@ require('lazy').setup({
           rust_analyzer = function() end,
         },
       }
+      -- setup ccls
+      require('ccls').setup { lsp = { use_defaults = true } }
     end,
   },
 
