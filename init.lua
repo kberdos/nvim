@@ -782,6 +782,13 @@ require('lazy').setup({
             directory = vim.fs.normalize '~/.cache/ccls',
           },
         },
+        codelens = {
+          enable = true,
+          events = {
+            'BufWritePost',
+            'InsertLeave',
+          },
+        },
         --on_attach = require("my.attach").func,
         --capabilities = my_caps_table_or_func
       }
