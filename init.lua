@@ -769,7 +769,22 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
-      require('ccls').setup { lsp = { use_defaults = true } }
+      local util = require 'lspconfig.util'
+      local server_config = {
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
+        root_dir = function(fname)
+          return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname) or util.find_git_ancestor(fname)
+        end,
+        init_options = {
+          cache = {
+            directory = vim.env.XDG_CACHE_HOME .. '/ccls/',
+            -- or vim.fs.normalize "~/.cache/ccls" -- if on nvim 0.8 or higher
+          },
+        },
+        --on_attach = require("my.attach").func,
+        --capabilities = my_caps_table_or_func
+      }
+      require('ccls').setup { lsp = { lspconfig = server_config } }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
