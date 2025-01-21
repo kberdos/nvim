@@ -411,6 +411,10 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'ranjithshegde/ccls.nvim',
+  },
+
   -- Harpoon
   {
     'theprimeagen/harpoon',
@@ -733,9 +737,6 @@ require('lazy').setup({
             },
           },
         },
-        ccls = {
-          lsp = { use_defaults = true },
-        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -768,6 +769,7 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
+      require('ccls').setup { lsp = { use_defaults = true } }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
