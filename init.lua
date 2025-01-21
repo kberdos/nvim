@@ -411,9 +411,9 @@ require('lazy').setup({
     end,
   },
 
-  {
-    'ranjithshegde/ccls.nvim',
-  },
+  -- {
+  --   'ranjithshegde/ccls.nvim',
+  -- },
 
   -- Harpoon
   {
@@ -737,6 +737,12 @@ require('lazy').setup({
             },
           },
         },
+        clangd = {
+          cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
+          init_options = {
+            fallbackFlags = { '-std=c++17' },
+          },
+        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -769,30 +775,30 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
-      local util = require 'lspconfig.util'
-      local server_config = {
-        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
-        -- finds the root dir. NOTE: relies on the presence of a .git file
-        root_dir = function(fname)
-          return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname)
-            or vim.fs.dirname(vim.fs.find('.git', { path = vim.fs.dirname(fname), upward = true })[1])
-        end,
-        init_options = {
-          cache = {
-            directory = vim.fs.normalize '~/.cache/ccls',
-          },
-        },
-        codelens = {
-          enable = true,
-          events = {
-            'BufWritePost',
-            'InsertLeave',
-          },
-        },
-        --on_attach = require("my.attach").func,
-        --capabilities = my_caps_table_or_func
-      }
-      require('ccls').setup { lsp = { lspconfig = server_config } }
+      -- local util = require 'lspconfig.util'
+      -- local server_config = {
+      --   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
+      --   -- finds the root dir. NOTE: relies on the presence of a .git file
+      --   root_dir = function(fname)
+      --     return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname)
+      --       or vim.fs.dirname(vim.fs.find('.git', { path = vim.fs.dirname(fname), upward = true })[1])
+      --   end,
+      --   init_options = {
+      --     cache = {
+      --       directory = vim.fs.normalize '~/.cache/ccls',
+      --     },
+      --   },
+      --   codelens = {
+      --     enable = true,
+      --     events = {
+      --       'BufWritePost',
+      --       'InsertLeave',
+      --     },
+      --   },
+      --   --on_attach = require("my.attach").func,
+      --   --capabilities = my_caps_table_or_func
+      -- }
+      -- require('ccls').setup { lsp = { lspconfig = server_config } }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
