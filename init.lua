@@ -275,13 +275,6 @@ require('lazy').setup({
     end,
   },
 
-  -- rustaceanvim
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
-  },
-
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
