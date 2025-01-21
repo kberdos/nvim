@@ -772,6 +772,7 @@ require('lazy').setup({
       local util = require 'lspconfig.util'
       local server_config = {
         filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
+        -- finds the root dir. NOTE: relies on the presence of a .git file
         root_dir = function(fname)
           return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname)
             or vim.fs.dirname(vim.fs.find('.git', { path = vim.fs.dirname(fname), upward = true })[1])
