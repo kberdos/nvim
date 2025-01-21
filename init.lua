@@ -745,7 +745,6 @@ require('lazy').setup({
             -- '--fallback-style=webkit',
           },
         },
-        svelte = {},
         gopls = {
           settings = {
             gopls = {
@@ -757,11 +756,6 @@ require('lazy').setup({
             },
           },
         },
-        pyright = {},
-        jdtls = {
-          filetypes = { 'kotlin', 'java' },
-          workspace = { checkThirdParty = false },
-        },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -769,7 +763,6 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
-        html = {},
         --
 
         lua_ls = {
