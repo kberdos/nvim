@@ -161,6 +161,14 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Make sure diagnostics work
+vim.diagnostic.config {
+  virtual_text = true, -- Show inline text at the end of the line
+  signs = true, -- Show signs in the gutter
+  underline = true, -- Underline the problematic code
+  severity_sort = true, -- Sort diagnostics by severity
+}
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
@@ -411,9 +419,9 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   'ranjithshegde/ccls.nvim',
-  -- },
+  {
+    'ranjithshegde/ccls.nvim',
+  },
 
   -- Harpoon
   {
@@ -726,23 +734,17 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        gopls = {
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
-            },
-          },
-        },
-        clangd = {
-          cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose' },
-          init_options = {
-            fallbackFlags = { '-std=c++17' },
-          },
-        },
+        -- gopls = {
+        --   settings = {
+        --     gopls = {
+        --       analyses = {
+        --         unusedparams = true,
+        --       },
+        --       staticcheck = true,
+        --       gofumpt = true,
+        --     },
+        --   },
+        -- },
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -775,30 +777,30 @@ require('lazy').setup({
       --
       --  You can press `g?` for help in this menu
       require('mason').setup()
-      -- local util = require 'lspconfig.util'
-      -- local server_config = {
-      --   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
-      --   -- finds the root dir. NOTE: relies on the presence of a .git file
-      --   root_dir = function(fname)
-      --     return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname)
-      --       or vim.fs.dirname(vim.fs.find('.git', { path = vim.fs.dirname(fname), upward = true })[1])
-      --   end,
-      --   init_options = {
-      --     cache = {
-      --       directory = vim.fs.normalize '~/.cache/ccls',
-      --     },
-      --   },
-      --   codelens = {
-      --     enable = true,
-      --     events = {
-      --       'BufWritePost',
-      --       'InsertLeave',
-      --     },
-      --   },
-      --   --on_attach = require("my.attach").func,
-      --   --capabilities = my_caps_table_or_func
-      -- }
-      -- require('ccls').setup { lsp = { lspconfig = server_config } }
+      local util = require 'lspconfig.util'
+      local server_config = {
+        filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' },
+        -- finds the root dir. NOTE: relies on the presence of a .git file
+        root_dir = function(fname)
+          return util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname)
+            or vim.fs.dirname(vim.fs.find('.git', { path = vim.fs.dirname(fname), upward = true })[1])
+        end,
+        init_options = {
+          cache = {
+            directory = vim.fs.normalize '~/.cache/ccls',
+          },
+        },
+        codelens = {
+          enable = true,
+          events = {
+            'BufWritePost',
+            'InsertLeave',
+          },
+        },
+        --on_attach = require("my.attach").func,
+        --capabilities = my_caps_table_or_func
+      }
+      require('ccls').setup { lsp = { lspconfig = server_config } }
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
