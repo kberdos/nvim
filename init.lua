@@ -789,6 +789,9 @@ require('lazy').setup({
           cache = {
             directory = vim.fs.normalize '~/.cache/ccls',
           },
+          client = {
+            offsetEncoding = { 'utf-8' }, -- Specify UTF-8 positional encoding
+          },
         },
         codelens = {
           enable = true,
