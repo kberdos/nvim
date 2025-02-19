@@ -274,6 +274,12 @@ require('lazy').setup({
   --   },
   -- },
 
+  -- {
+  --   'mrcjkb/rustaceanvim',
+  --   version = '^5', -- Recommended
+  --   lazy = false, -- This plugin is already lazy
+  -- },
+
   {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -957,7 +963,7 @@ require('lazy').setup({
 
   -- Feline: Custom status bar
   {
-    'freddiehaddad/feline.nvim',
+    'famiu/feline.nvim',
     opts = {},
     config = function(_, opts)
       local ctp_feline = require 'catppuccin.groups.integrations.feline'
