@@ -499,7 +499,7 @@ require('lazy').setup({
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
-    branch = '0.1.x',
+    branch = 'master',
     dependencies = {
       'nvim-lua/plenary.nvim',
       { -- If encountering errors, see telescope-fzf-native README for install instructions
@@ -947,7 +947,7 @@ require('lazy').setup({
 
   -- Feline: Custom status bar
   {
-    'freddiehaddad/feline.nvim',
+    'famiu/feline.nvim',
     opts = {},
     config = function(_, opts)
       local ctp_feline = require 'catppuccin.groups.integrations.feline'
